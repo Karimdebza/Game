@@ -29,10 +29,10 @@ public class Game {
         room2.addMonster(dragon);
         room2.addTreasure(sword);
 
-        // if (currentRoom.hasMonster()) {
-        //     Monster monster = dragon;
-        //     startfight(player, monster);
-        // }
+      
+            Monster monster = dragon;
+            startfight(player, monster);
+   
 
 
         currentRoom = entrance;
@@ -145,9 +145,9 @@ public class Game {
 
     public void startfight(Player player, Monster monster){
         System.out.println("Le combat commence !");
-        while (player.isAlive() && monster.isAlive()) {
-         attackMonster(monster.getName());
-         monster.takeDamage(10);
+        while (player != null && monster != null) {
+        //  attackMonster(monster.getName());
+       
         }
         System.out.println("Fin du combat.");
     }
