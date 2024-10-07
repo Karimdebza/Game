@@ -6,6 +6,7 @@ public class Room {
     private HashMap<String, Room> exits;
     private List<Treasure> treasures;
     private List<Monster> monsters;
+    private Monster monster;
 
 
     Room(String description){
@@ -20,7 +21,9 @@ public class Room {
     }
 
     public String getLongDescription() {
-        return "Tu es " + description + ".\n" + getExitString();
+        return "Tu es " + description + ".\n" + getExitString() 
+        
+        + " " + "les Monstres disponibles dans la piece: " + getMonsters() +   " " + "Les tresors disponibles dans la piece" +  getTreasures();
     }
 
     public String getExitString() {
@@ -39,6 +42,9 @@ public class Room {
         monsters.add(monster);
     }
 
+    public boolean hasMonster() {
+        return monster != null;
+    }
     public List<Monster> getMonsters() {
         return monsters;
     }
@@ -47,4 +53,7 @@ public class Room {
         return treasures;
     }
 
+    public Monster getMonster() {
+        return monster;
+    }
 }

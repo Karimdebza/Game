@@ -7,6 +7,7 @@ public class Monster {
     private String name;
     private int health;
     private ActionStrategy actionStrategy;
+  
 
     public Monster(String name, int health) {
         this.name = name;
@@ -36,5 +37,10 @@ public class Monster {
 
     public String getName() {
         return name;
+    }
+
+
+    public boolean isAlive(){
+        return health > 0;
     }
 }

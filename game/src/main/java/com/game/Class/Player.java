@@ -25,6 +25,10 @@ public class Player  {
     }
     
 
+    public boolean isAlive(){
+        return health > 0;
+    }
+
     public void performAction() {
         if (actionStrategy != null) {
             actionStrategy.execute();

@@ -3,9 +3,11 @@ import java.util.*;
 public class Game {
     private Room currentRoom;
     private Player player;
+    private Monster monster;
 
     public Game() {
         player = new Player("Hero");
+        monster = new Monster("dragon", 100);
         createRooms();
     }
     private void createRooms(){
@@ -21,12 +23,27 @@ public class Game {
         Weapon sword = new Weapon("epée", 15);
         room1.addTreasure(sword);
 
-        Monster goblin = new Monster("Goblin", 50);
+        Monster goblin = new Monster("goblin", 50);
+        Monster dragon = new Monster("dragon", 100);
 
-        room2.addMonster(goblin);
+        room2.addMonster(dragon);
+        room2.addTreasure(sword);
+
+        // if (currentRoom.hasMonster()) {
+        //     Monster monster = dragon;
+        //     startfight(player, monster);
+        // }
+
 
         currentRoom = entrance;
+        
+        
+        
+       
+        
+      
 
+    
     }
 
     public void play(){
@@ -43,9 +60,10 @@ public class Game {
             System.out.print("> ");
             String command = scanner.nextLine();
             finished = processCommand(command);
+            
         }
 
-        System.out.println(" Merci d'avoir jouer aurevoir :)");
+        System.out.println(" Merci d'avoir jouer aurevoir :)" + playerName);
        
 
     }
@@ -56,6 +74,8 @@ public class Game {
         System.out.println("taper 'help' si tu as besoin d'aide.");
         System.out.println();
         System.out.println(currentRoom.getLongDescription());
+        System.out.println(currentRoom.getMonsters());
+        System.out.println(currentRoom.getTreasures());
         
     }
 
@@ -72,21 +92,21 @@ public class Game {
         switch (command) {
             case "aller":
                 if (commandWords.length > 1) {
-                    goRoom(commandWords[1].toLowerCase()); // Direction en minuscule
+                    goRoom(commandWords[1].toLowerCase()); 
                 } else {
                     System.out.println("Direction manquante.");
                 }
                 break;
             case "obtenir":
                 if (commandWords.length > 1) {
-                    takeItem(commandWords[1].toLowerCase()); // Objet en minuscule
+                    takeItem(commandWords[1].toLowerCase());
                 } else {
                     System.out.println("Objet manquant.");
                 }
                 break;
             case "attaquer":
                 if (commandWords.length > 1) {
-                    attackMonster(commandWords[1].toLowerCase()); // Monstre en minuscule
+                    attackMonster(commandWords[1].toLowerCase()); 
                 } else {
                     System.out.println("Monstre manquant.");
                 }
@@ -123,6 +143,15 @@ public class Game {
         System.out.println("Il y'a pas de " + itemName + " ici.");
     }   
 
+    public void startfight(Player player, Monster monster){
+        System.out.println("Le combat commence !");
+        while (player.isAlive() && monster.isAlive()) {
+         attackMonster(monster.getName());
+         monster.takeDamage(10);
+        }
+        System.out.println("Fin du combat.");
+    }
+
 
     private void attackMonster(String monsterName) {
         for (Monster monster : currentRoom.getMonsters()) {
@@ -130,6 +159,7 @@ public class Game {
                 Weapon weapon = new Weapon("epée", 15); 
                 player.setActionStrategy(new PlayerAttackStrategy(monster, weapon));
                 player.performAction();
+                
                 return;
             }
         }
