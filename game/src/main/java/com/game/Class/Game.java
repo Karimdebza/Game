@@ -109,7 +109,7 @@ public class Game {
                 break;
             case "attaquer":
                 if (commandWords.length > 1) {
-                    attackMonster(commandWords[1].toLowerCase()); 
+                    // attackMonster(commandWords[1].toLowerCase()); 
                 } else {
                     System.out.println("Monstre manquant.");
                 }
@@ -151,15 +151,15 @@ public class Game {
         if(monster.isAlive()  ){
         System.out.println("Le combat commence !" );
         while (player.isAlive() && monster.isAlive()) {
-        
-            Weapon sword = new Weapon("epée", 15);
+            int randomNumP = (int)(Math.random() * 100);
+            Weapon sword = new Weapon("epée", randomNumP);
             PlayerAttackStrategy playerAttack = new PlayerAttackStrategy(monster, sword);
             
             playerAttack.execute();
 
-
-            MonstreAttaqueStrategy monsterAttack = new MonstreAttaqueStrategy(player, 10);
-
+            int randomNumM = (int)(Math.random() * 100);
+            MonstreAttaqueStrategy monsterAttack = new MonstreAttaqueStrategy(player,randomNumM);
+            
             monsterAttack.execute();
                 
        
@@ -171,18 +171,18 @@ public class Game {
 }
 
 
-    private void attackMonster(String monsterName) {
-        for (Monster monster : currentRoom.getMonsters()) {
-            if (monster.getName().equals(monsterName)) {
-                Weapon weapon = new Weapon("epée", 15); 
-                player.setActionStrategy(new PlayerAttackStrategy(monster, weapon));
-                player.performAction();
+    // private void attackMonster(String monsterName) {
+    //     for (Monster monster : currentRoom.getMonsters()) {
+    //         if (monster.getName().equals(monsterName)) {
+    //             Weapon weapon = new Weapon("epée", 15); 
+    //             player.setActionStrategy(new PlayerAttackStrategy(monster, weapon));
+    //             player.performAction();
                 
-                return;
-            }
-        }
-        System.out.println("Il y'a pas de " + monsterName + " ici.");
-    }
+    //             return;
+    //         }
+    //     }
+    //     System.out.println("Il y'a pas de " + monsterName + " ici.");
+    // }
 
     private void printHelp() {
         System.out.println("Command disponible:");
