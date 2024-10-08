@@ -26,12 +26,12 @@ public class Game {
         Monster goblin = new Monster("goblin", 50);
         Monster dragon = new Monster("dragon", 100);
 
-        room2.addMonster(dragon);
+        room1.addMonster(dragon);
+        room2.addMonster(goblin);
         room2.addTreasure(sword);
 
       
-            Monster monster = dragon;
-            startfight(player, monster);
+
    
 
 
@@ -60,6 +60,9 @@ public class Game {
             System.out.print("> ");
             String command = scanner.nextLine();
             finished = processCommand(command);
+    
+            startfight(player, monster);
+
             
         }
 
@@ -144,13 +147,28 @@ public class Game {
     }   
 
     public void startfight(Player player, Monster monster){
-        System.out.println("Le combat commence !");
-        while (player != null && monster != null) {
-        //  attackMonster(monster.getName());
+
+        if(monster.isAlive()  ){
+        System.out.println("Le combat commence !" );
+        while (player.isAlive() && monster.isAlive()) {
+        
+            Weapon sword = new Weapon("epée", 15);
+            PlayerAttackStrategy playerAttack = new PlayerAttackStrategy(monster, sword);
+            
+            playerAttack.execute();
+
+
+            MonstreAttaqueStrategy monsterAttack = new MonstreAttaqueStrategy(player, 10);
+
+            monsterAttack.execute();
+                
        
         }
         System.out.println("Fin du combat.");
+    }else {
+        System.out.println("il n'ya pas de monstre ici");
     }
+}
 
 
     private void attackMonster(String monsterName) {

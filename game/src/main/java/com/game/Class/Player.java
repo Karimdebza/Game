@@ -64,4 +64,10 @@ public class Player  {
         return name;
     }
 
+
+    public void lunchAttack(Monster target){
+
+        
+    }
+
 }
