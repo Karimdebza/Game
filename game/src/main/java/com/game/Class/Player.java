@@ -7,7 +7,7 @@ import com.game.ActionStrategy;;
 
 
 public class Player  {
-        private String name;
+    private String name;
     private List<Treasure> bag;
     private int health;
     private ActionStrategy actionStrategy;
@@ -40,7 +40,7 @@ public class Player  {
     public void takeTreasure(Treasure treasure){
         bag.add(treasure);
         if(treasure != null){
-            System.out.println("You have taken the " + treasure.getName() + ".");
+            System.out.println("tu as recuperé une  " + treasure.getName() + ".");
         }
     }
 

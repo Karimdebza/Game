@@ -23,12 +23,16 @@ public class Room {
     public String getLongDescription() {
         return "Tu es " + description + ".\n" + getExitString() 
         
-        + " " + "les Monstres disponibles dans la piece: " + getMonsters() +   " " + "Les tresors disponibles dans la piece" +  getTreasures();
+        + " " + "les Monstres disponibles dans la piece: " + monsters +   " " + "Les tresors disponibles dans la piece : " +  treasures ;
     }
 
     public String getExitString() {
         return "Sortie: " + String.join(", ", exits.keySet());
     }
+
+    // public String getMonstersString() {
+    //     return "Monstre disponible: " + String.join(", ", m.keySet());
+    // }
 
     public Room getExit(String direction) {
         return exits.get(direction);

@@ -8,6 +8,8 @@ public class Game {
     public Game() {
         player = new Player("Hero");
         monster = new Monster("dragon", 100);
+        monster = new Monster("goblin", 50);
+        
         createRooms();
     }
     private void createRooms(){
@@ -21,16 +23,18 @@ public class Game {
         room1.addExit("east", room2);
 
         Weapon sword = new Weapon("epée", 15);
+        Weapon spear = new Weapon("lance", 20);
         room1.addTreasure(sword);
 
-        Monster goblin = new Monster("goblin", 50);
+       
         Monster dragon = new Monster("dragon", 100);
-
+        Monster goblin = new Monster("goblin", 50);
+        room1.addTreasure(sword);
         room1.addMonster(dragon);
         room2.addMonster(goblin);
-        room2.addTreasure(sword);
+        room2.addTreasure(spear);
 
-      
+       
 
    
 
@@ -61,7 +65,7 @@ public class Game {
             String command = scanner.nextLine();
             finished = processCommand(command);
     
-            startfight(player, monster);
+            // startfight(player, monster);
 
             
         }
@@ -77,14 +81,16 @@ public class Game {
         System.out.println("taper 'help' si tu as besoin d'aide.");
         System.out.println();
         System.out.println(currentRoom.getLongDescription());
+        System.out.println();
         System.out.println(currentRoom.getMonsters());
+        System.out.println();
         System.out.println(currentRoom.getTreasures());
         
     }
 
     private boolean processCommand(String commandLine){
         String[] commandWords = commandLine.split(" ");
-
+        Monster monster = new Monster("commandLine", 0);
         if (commandWords.length == 0) {
             System.out.println("Command inconnue.");
             return false;
@@ -109,7 +115,7 @@ public class Game {
                 break;
             case "attaquer":
                 if (commandWords.length > 1) {
-                    // attackMonster(commandWords[1].toLowerCase()); 
+                    startfight(player, monster);
                 } else {
                     System.out.println("Monstre manquant.");
                 }
@@ -148,27 +154,28 @@ public class Game {
 
     public void startfight(Player player, Monster monster){
 
-        if(monster.isAlive()  ){
+       
         System.out.println("Le combat commence !" );
         while (player.isAlive() && monster.isAlive()) {
-            int randomNumP = (int)(Math.random() * 100);
+          
+            
+            int randomNumM = (int)(Math.random() * 30);
+            MonstreAttaqueStrategy monsterAttack = new MonstreAttaqueStrategy(player,randomNumM);
+
+            monsterAttack.execute();
+            
+            int randomNumP = (int)(Math.random() * 30);
             Weapon sword = new Weapon("epée", randomNumP);
-            PlayerAttackStrategy playerAttack = new PlayerAttackStrategy(monster, sword);
+            PlayerAttackStrategy playerAttack = new PlayerAttackStrategy(monster, sword,randomNumP);
             
             playerAttack.execute();
 
-            int randomNumM = (int)(Math.random() * 100);
-            MonstreAttaqueStrategy monsterAttack = new MonstreAttaqueStrategy(player,randomNumM);
             
-            monsterAttack.execute();
                 
        
         }
         System.out.println("Fin du combat.");
-    }else {
-        System.out.println("il n'ya pas de monstre ici");
     }
-}
 
 
     // private void attackMonster(String monsterName) {

@@ -43,4 +43,10 @@ public class Monster {
     public boolean isAlive(){
         return health > 0;
     }
+
+    @Override
+    public String toString() {
+        // TODO Auto-generated method stub
+        return getName();
+    }
 }

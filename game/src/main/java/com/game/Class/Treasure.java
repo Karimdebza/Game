@@ -10,4 +10,10 @@ public class Treasure {
     public String getName() {
         return name;
     }
+
+    @Override
+    public String toString() {
+        // TODO Auto-generated method stub
+        return getName();
+    }
 }

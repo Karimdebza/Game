@@ -14,8 +14,9 @@ public class MonstreAttaqueStrategy implements ActionStrategy {
 
     @Override
     public void execute() {
+        
+        System.out.println("le monstre attaque " + player.getName() + " et lui fais perdre  " + damage + "de dégâts ");
         player.takeDamage(damage);
-        System.out.println("le monstre attaque " + player.getName() + " et lui fais perdre  " + damage + "de dommage ");
     }
     
 }
